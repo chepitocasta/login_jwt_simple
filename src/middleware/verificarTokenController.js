@@ -1,17 +1,14 @@
 const jwt = require("jsonwebtoken");
-const config = require("../config");
 
 const validarToken = (req, res, next) => {
   const token = req.headers["x-access-token"];
 
   if (!token) {
     return res.status(401).json({
-      auth: false,
-      message: "Sin autenticacion de token"
+      message: "Credenciales incorrectas"
     });
   }
-
-  const decoded = jwt.verify(token, config.secret);
+  const decoded = jwt.verify(token, process.env.SECRET_TOKEN);
   req.userId = decoded.id;
   next();
 };

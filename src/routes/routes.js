@@ -2,7 +2,7 @@ const { Router } = require("express");
 const router = Router();
 const authCrt = require("../controllers/authController");
 const userCrt = require("../controllers/userController");
-const verificarToken = require("../controllers/verificarTokenController");
+const verificarToken = require("../middleware/verificarTokenController");
 
 router.post("/signup", authCrt.signUp);
 
