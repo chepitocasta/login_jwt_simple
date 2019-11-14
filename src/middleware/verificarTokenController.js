@@ -8,8 +8,16 @@ const validarToken = (req, res, next) => {
       message: "Credenciales incorrectas"
     });
   }
-  const decoded = jwt.verify(token, process.env.SECRET_TOKEN);
-  req.userId = decoded.id;
+  try {
+    const decoded = jwt.verify(token, process.env.SECRET_TOKEN);
+    req.userId = decoded.id;
+  } catch (error) {
+    return res.status(401).json({
+      message: "Credenciales incorrectas",
+      error
+    });
+  }
+
   next();
 };
 

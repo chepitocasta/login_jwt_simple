@@ -16,21 +16,21 @@ const signUp = async (req, res) => {
   const token = jwt.sign({ id: user._id }, process.env.SECRET_TOKEN, {
     expiresIn: 60 * 60 * 24
   });
-  res.json({ user, auth: true, token });
+  res.json({ user, token });
 };
 
 //LOGIN DE USUARIOS
 const signIn = async (req, res) => {
   const { email, password } = req.body;
+
   const user = await UserMdl.findOne({ email });
   if (!user) {
-    return res.status(401).send({ message: "Credenciales incorrectas" });
+    return res.status(400).send({ message: "Usuario o clave incorrecta" });
   }
 
   const validPassword = await user.validarClave(password);
-  console.log(validPassword);
   if (!validPassword) {
-    return res.status(401).json({ message: "Credenciales incorrectas" });
+    return res.status(400).json({ message: "Usuario o clave incorrecta" });
   }
 
   const token = jwt.sign({ id: user._id }, process.env.SECRET_TOKEN, {
