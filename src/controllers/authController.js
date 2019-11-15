@@ -10,12 +10,16 @@ const signUp = async (req, res) => {
     email,
     password
   });
+  try {
+    user.password = await user.encriptarClave(user.password);
+    await user.save();
+    const token = jwt.sign({ id: user._id }, process.env.SECRET_TOKEN, {
+      expiresIn: 60 * 60 * 24
+    });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
 
-  user.password = await user.encriptarClave(user.password);
-  await user.save();
-  const token = jwt.sign({ id: user._id }, process.env.SECRET_TOKEN, {
-    expiresIn: 60 * 60 * 24
-  });
   res.json({ user, token });
 };
 
