@@ -6,7 +6,7 @@ const userSchema = new Schema({
   password: String
 });
 
-userSchema.methods.claveEncriptada = async password => {
+userSchema.methods.encriptarclave = async password => {
   const salt = await bcrypt.genSalt(10);
   return bcrypt.hash(password, salt);
 };

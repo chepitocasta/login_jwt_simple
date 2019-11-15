@@ -11,7 +11,7 @@ const signUp = async (req, res) => {
     password
   });
 
-  user.password = await user.claveEncriptada(user.password);
+  user.password = await user.encriptarClave(user.password);
   await user.save();
   const token = jwt.sign({ id: user._id }, process.env.SECRET_TOKEN, {
     expiresIn: 60 * 60 * 24
