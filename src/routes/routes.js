@@ -5,11 +5,7 @@ const userCrt = require("../controllers/userController");
 const verificarToken = require("../middleware/verificarTokenController");
 const validations = require("../middleware/dataValidation");
 
-router.post(
-  "/signup",
-  validations.validate(validations.createUserValidation),
-  authCrt.signUp
-);
+router.post("/signup", validations.createUserValidation, authCrt.signUp);
 
 router.post("/signin", authCrt.signIn);
 

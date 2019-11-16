@@ -17,7 +17,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(require("./routes/routes"));
 
 app.use((error, req, res, next) => {
-  console.error(error);
   res.status(400).json({ message: error.message });
 });
 

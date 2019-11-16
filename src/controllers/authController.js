@@ -10,7 +10,6 @@ const signUp = async (req, res) => {
     password
   });
   user.password = await user.encriptarClave(user.password);
-  console.log(user.password);
   await user.save();
 
   const token = jwt.sign({ id: user._id }, process.env.SECRET_TOKEN, {
