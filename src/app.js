@@ -5,6 +5,8 @@ if (process.env.NODE_ENV !== "production") {
 
 const express = require("express");
 const app = express();
+const catchError = require("./middleware/catchError");
+require("./database");
 
 //settings
 app.set("port", process.env.PORT || 3000);
@@ -16,8 +18,6 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(require("./routes/routes"));
 
-app.use((error, req, res, next) => {
-  res.status(400).json({ message: error.message });
-});
+app.use(catchError);
 
 module.exports = app;

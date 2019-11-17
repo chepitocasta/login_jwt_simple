@@ -10,6 +10,12 @@ const signUp = async (req, res) => {
     password
   });
   user.password = await user.encriptarClave(user.password);
+
+  const existUser = await UserMdl.findOne({ email });
+  if (existUser) {
+    return res.status(400).send({ message: "El correo ya esta registrado." });
+  }
+
   await user.save();
 
   const token = jwt.sign({ id: user._id }, process.env.SECRET_TOKEN, {

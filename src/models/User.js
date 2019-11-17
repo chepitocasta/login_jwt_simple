@@ -3,12 +3,10 @@ const bcrypt = require("bcryptjs");
 
 const userSchema = new Schema({
   username: String,
+  userAvatar: String,
   email: String,
-  password: {
-    type: String,
-    required: true,
-    minLength: 6
-  }
+  password: String,
+  signupDate: { type: Date, default: Date.now() }
 });
 
 userSchema.methods.encriptarClave = async password => {

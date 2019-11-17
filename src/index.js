@@ -1,5 +1,4 @@
 const app = require("./app");
-require("./database");
 
 //iniciar servidor
 app.listen(app.get("port"), () => {
